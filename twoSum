@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        map<int, int> intMap;
+        for (size_t i = 0; i < nums.size(); ++i) {
+            intMap.insert(make_pair(target - nums.at(i), i));
+        }
+        vector<int> resVec;
+        for (size_t i = 0; i < nums.size(); ++i) {
+            auto it = intMap.find(nums[i]);
+            if (it != intMap.end() && i != it->second) {
+                resVec.push_back(it->second);
+                resVec.push_back(i);
+                break;
+            }
+        }
+        return resVec;
+    }
+};
