@@ -1,0 +1,18 @@
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> tmpNum(nums1);
+        for (const auto& num : nums2) {
+            tmpNum.push_back(num);
+        }
+        std::sort(tmpNum.begin(), tmpNum.end());
+        int index = tmpNum.size() % 2;
+        if (index == 0) {
+            int i = tmpNum.size() / 2;
+            double sum = tmpNum[i - 1] + tmpNum[i];
+            return sum / 2;
+        } else {
+            return tmpNum[(tmpNum.size() - 1) / 2];
+        }
+    }
+};
