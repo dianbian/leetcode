@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int romanToInt(string s) 
+    {
+     int sum=0,i;
+     for(i=0;s[i];i++)
+     {
+         if(s[i+1]&&(number(s[i])<number(s[i+1])))
+             sum=sum-number(s[i]);
+         else
+             sum=sum+number(s[i]);
+     }
+     return sum;
+    }
+    
+    int number(char a)
+    {
+        switch(a)
+        {
+            case'I':return 1;break;
+            case'V':return 5;break;
+            case'X':return 10;break;
+            case'L':return 50;break;
+            case'C':return 100;break;
+            case'D':return 500;break;
+            case'M':return 1000;break;
+            default:return 0;break;
+        }
+    }
+};
