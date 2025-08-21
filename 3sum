@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> indexs;
+        for (int i = 0; i < nums.size() - 2; ++i) {
+            
+            for (int j = i + 1; j < nums.size() - 1; ++j) {
+                vector<int> index;
+                bool flag1 = false;
+                for (int k = j + 1; k < nums.size(); ++k) {
+                    int res = nums[i] + nums[j] + nums[k];
+                    if (res == 0 && k != i && i != j) {
+                        index.push_back(nums[i]);
+                        index.push_back(nums[j]);
+                        index.push_back(nums[k]);
+                        std::sort(index.begin(), index.end());
+                        flag1 = true;
+                        break;
+                    }
+                }
+                bool flag = true;
+                for (int k = 0; k < indexs.size(); ++k) {
+                    if (index.size() == 3 && indexs[k][0] == index[0] && indexs[k][1] == index[1]) {
+                     flag = false;
+                     break;
+                    }
+                }
+                if ((indexs.size() == 0 || flag) && index.size() == 3) {
+                    indexs.push_back(index);
+                }
+            }
+            
+        }
+        return indexs;
+    }
+};
