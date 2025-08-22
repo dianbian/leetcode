@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<string> KEYS = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+
+    void combination(string prefix, string digits, int offset, vector<string>& ret) {
+        //offset 代表在加哪个数字
+        if (offset == digits.length()) {
+            ret.push_back(prefix);
+            return;
+        }
+        int index = digits[offset] - '0';
+        string letters(KEYS[index]);
+        for (int i = 0; i < letters.length(); i++) {
+            combination(prefix + letters[i], digits, offset + 1, ret);
+        }
+    }
+
+    vector<string> letterCombinations(string digits) {
+  
+        
+        vector<string> ret;
+        if(digits.size() == 0) {
+            return ret;
+        }
+        
+        combination("", digits, 0, ret);
+        return ret;
+    }
+
+    
+};
