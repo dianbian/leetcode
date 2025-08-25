@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> stackChar;
+        for (int i = 0; i < s.size(); i++) {
+            if (stackChar.size() == 0) {
+                stackChar.push(s[i]);
+                continue;
+            }
+            char st = stackChar.top();
+            if (st == '(' && s[i] == ')') {
+                stackChar.pop();
+            } else if (st == '[' && s[i] == ']') {
+                stackChar.pop();
+            } else if (st == '{' && s[i] == '}') {
+                stackChar.pop();
+            } else {
+                stackChar.push(s[i]);
+            }
+        }
+        return stackChar.size() == 0;
+    }
+};
