@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> result;
+        if (n == 0) return result;
+    
+        queue<pair<string, pair<int, int>>> q; // 存储当前字符串和括号计数
+        q.push({"", {0, 0}});
+    
+        while (!q.empty()) {
+            auto current = q.front();
+            q.pop();
+            string str = current.first;
+            int left = current.second.first;
+            int right = current.second.second;
+        
+            if (str.length() == 2 * n) {
+                result.push_back(str);
+                continue;
+            }
+        
+            if (left < n) {
+                q.push({str + "(", {left + 1, right}});
+            }
+            if (right < left) {
+                q.push({str + ")", {left, right + 1}});
+            }
+        }
+        return result;
+    }
+};
