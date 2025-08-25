@@ -31,16 +31,17 @@ public:
         }
         ListNode* p = new ListNode;
         ListNode* q = new ListNode;
+        int i = 0;
         while (l1 != nullptr && l2 != nullptr) {
            if (l1->val < l2->val) {
-                if (p->val == 0) {
+                if (i == 0) {
                     p->val = 1;
                     p = l1;
                 }
                 q->next = l1;
                 l1 = l1->next;
             } else {
-                if (p->val == 0) {
+                if (i == 0) {
                     p->val = 1;
                     p = l2;
                 }
@@ -48,6 +49,7 @@ public:
                 l2 = l2->next;
             }
             q = q->next;
+            i++;
         }
         if (l1 != nullptr) {
             q->next = l1;
