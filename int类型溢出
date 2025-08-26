@@ -1,0 +1,10 @@
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        if (dividend == INT_MIN && divisor == -1) {
+            dividend += 1;
+        }
+        int res = dividend / divisor;
+        return res;
+    }
+};
