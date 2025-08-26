@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        vector<int> sTmp;
+        for (int i = 0; i < nums.size(); ++i) 
+        {
+            if (val != nums[i]) {
+                sTmp.push_back(nums[i]);
+            }
+        }
+        swap(sTmp, nums);
+        return nums.size();
+    }
+};
+
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int k = 0; // 慢指针，指向当前有效元素的位置
+        
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] != val) {
+                nums[k] = nums[i];
+                k++;
+            }
+        }
+        
+        return k;
+    }
+};
