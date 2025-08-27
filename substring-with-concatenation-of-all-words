@@ -1,0 +1,49 @@
+class Solution {
+public:
+    vector<int> findSubstring(string s, vector<string>& words) {
+        vector<int> resVec;
+        if (s.empty() || words.empty() || s.size() <= words[0].size()) {
+            return resVec;
+        }
+        map<string, int> mapCnt;
+        for (int i = 0; i < words.size(); ++i) {
+            auto it = mapCnt.find(words[i]);
+            if (it == mapCnt.end()) {
+                mapCnt.insert(make_pair(words[i], 1));
+            } else {
+                it->second++;
+            }
+        }
+        int wSize = words[0].size();
+        for (auto it = mapCnt.begin(); it != mapCnt.end(); ++it) {
+            cout << it->first << " + " << it->second << "-" << endl;
+            if (it->second < 1) {
+                return resVec;
+            }
+        }
+
+        int len = s.size() - (wSize * words.size());
+
+        vector<int> indexs;
+        for (int i = 0; i < len; i++) {
+            bool flag = true;
+            int startIndex = i;
+            map<string, int> tmpMap = mapCnt;
+            for (int j = 0; j < words.size(); ++j) {
+                string sTmp = s.substr(startIndex, wSize);
+                auto it = tmpMap.find(sTmp);
+                if (it == tmpMap.end() || it->second == 0) {
+                    flag = false;
+                    break;
+                } else {
+                    it->second--;
+                }
+                startIndex += wSize;
+            }
+            if (flag) {
+                indexs.push_back(i);
+            }
+        }
+        return indexs;
+    }
+};
