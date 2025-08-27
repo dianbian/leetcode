@@ -1,0 +1,19 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int i = nums.size() - 2; // 从倒数第二个元素开始向前查找
+        while (i >= 0 && nums[i] >= nums[i + 1]) { // 找到第一个非递增的元素位置i
+            i--;
+        }
+        if (i >= 0) { // 如果找到了非递增的元素，进行下一步操作
+            int j = nums.size() - 1; // 从最后一个元素开始向前查找
+            while (nums[j] <= nums[i]) { // 找到第一个大于nums[i]的元素位置j
+                j--;
+            }
+            std::swap(nums[i], nums[j]); // 交换nums[i]和nums[j]
+        }
+        // 反转i+1到末尾的部分，保持字典序的顺序
+        std::reverse(nums.begin() + i + 1, nums.end());
+        return;
+    }
+};
