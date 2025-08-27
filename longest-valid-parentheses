@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        stack<int> st;
+        st.push(-1); // 初始化栈底边界
+        int max_len = 0;
+    
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == '(') {
+                st.push(i); // 左括号索引入栈
+            } else {
+                st.pop();   // 弹出匹配的左括号索引
+                if (st.empty()) {
+                    st.push(i); // 更新边界
+                } else {
+                    max_len = max(max_len, i - st.top());
+                }
+            }   
+        }
+        return max_len; 
+    }
+};
