@@ -1,0 +1,102 @@
+class Solution {
+public:
+    string multiplySingle(string num1, char num2, int index) {
+        if (num2 == '0') {
+            return "0";
+        }
+        string str;
+        int val = 0;
+        for (int i = num1.size() - 1; i >= 0; i--) {
+            int first = num1[i] - '0';
+            int second = num2 - '0';
+            int res = first * second + val;
+            int single = res % 10;
+            str.append(1, single + '0');
+            val = res / 10;
+        }
+        if (val > 0) {
+            str.append(1, val + '0');
+        }
+        std::reverse(str.begin(), str.end());
+        if (index > 0) {
+            for (int i = 0; i < index; ++i) {
+                str.append(1, '0');
+            }
+        }
+        return str;
+    }
+
+    string plusStr(string num1, string num2) {
+        if (num1.empty() && num2.empty()) {
+            return "";
+        }
+        if (num1.empty()) {
+            return num2;
+        }
+        int size1 = num1.size() - 1;
+        int size2 = num2.size() - 1;
+        string str;
+        int val = 0;
+        while(size1 >= 0 || size2 >= 0) {
+            int first = size1 >= 0 ? num1[size1] - '0' : 0;
+            int second = size2 >= 0 ? num2[size2] - '0' : 0;
+            int res = first + second + val;
+            int single = res % 10;
+            str.append(1, single + '0');
+            val = res / 10;
+            size1--;
+            size2--;
+        }
+        if (val > 0) {
+            str.append(1, '1');
+        }
+        cout << str << endl;
+        std::reverse(str.begin(), str.end());
+        return str;
+    }
+
+    string multiply(string num1, string num2) {
+        if (num1 == "0" || num2 == "0") {
+            return "0";
+        }
+        string str;
+        std::reverse(num2.begin(), num2.end());
+        for (int i = 0; i < num2.size(); ++i) {
+            string tmp = multiplySingle(num1, num2[i], i);
+            str = plusStr(str, tmp);
+        }
+        return str;
+    }
+};
+
+
+
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        if (num1 == "0" || num2 == "0") return "0";
+        
+        int m = num1.size(), n = num2.size();
+        vector<int> res(m + n, 0);
+        
+        // 从右到左逐位相乘
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                int product = (num1[i] - '0') * (num2[j] - '0');
+                int sum = product + res[i + j + 1];
+                res[i + j + 1] = sum % 10;  // 当前位
+                res[i + j] += sum / 10;     // 进位
+            }
+        }
+        
+        // 转换为字符串并去除前导零
+        string result;
+        for (int num : res) {
+            if (!(result.empty() && num == 0)) {  // 跳过前导零
+                result.push_back(num + '0');
+            }
+        }
+        
+        return result.empty() ? "0" : result;
+    }
+};
