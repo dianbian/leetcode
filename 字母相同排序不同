@@ -19,8 +19,10 @@ public:
     }
 };
 
-// 方法2：哈希表+计数法
-    vector<vector<string>> groupAnagramsCount(vector<string>& strs) {
+class Solution {
+public:
+    // 方法2：哈希表+计数法
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
         unordered_map<string, vector<string>> groups;
         
         for (const string& s : strs) {
@@ -44,3 +46,4 @@ public:
         
         return result;
     }
+};
