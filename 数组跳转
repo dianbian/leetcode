@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int n = nums.size();
+        if (n < 2) return 0;
+        
+        int jumps = 0;
+        int cur_end = 0;  // 当前跳跃能到达的最远位置
+        int cur_farthest = 0;  // 当前跳跃范围内能到达的最远位置
+        
+        for (int i = 0; i < n - 1; ++i) {
+            cur_farthest = max(cur_farthest, i + nums[i]);
+            
+            // 到达当前跳跃的最远位置时，进行下一次跳跃
+            if (i == cur_end) {
+                jumps++;
+                cur_end = cur_farthest;
+                
+                // 如果已经可以到达终点，提前结束
+                if (cur_end >= n - 1) break;
+            }
+        }
+        return jumps;
+    }
+};
