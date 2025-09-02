@@ -1,0 +1,46 @@
+class Solution {
+public:
+    // 回溯法实现（处理重复元素）
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>> result;
+        vector<int> current;
+        vector<bool> used(nums.size(), false);
+        sort(nums.begin(), nums.end());  // 关键步骤：排序
+        backtrack(nums, used, current, result);
+        return result;
+    }
+    
+    void backtrack(vector<int>& nums, vector<bool>& used, 
+                  vector<int>& current, vector<vector<int>>& result) {
+        if (current.size() == nums.size()) {
+            result.push_back(current);
+            return;
+        }
+        
+        for (int i = 0; i < nums.size(); ++i) {
+            // 跳过已使用元素或重复元素
+            if (used[i] || (i > 0 && nums[i] == nums[i-1] && !used[i-1])) {
+                continue;
+            }
+            used[i] = true;
+            current.push_back(nums[i]);
+            backtrack(nums, used, current, result);
+            current.pop_back();
+            used[i] = false;
+        }
+    }
+};
+
+
+class Solution {
+public:
+    // STL实现（自动处理重复）
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>> result;
+        sort(nums.begin(), nums.end());
+        do {
+            result.push_back(nums);
+        } while (next_permutation(nums.begin(), nums.end()));
+        return result;
+    }
+};
