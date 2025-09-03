@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    if (intervals.empty()) return {};
+    
+    // 按区间起始位置排序
+    sort(intervals.begin(), intervals.end(), [](const vector<int>& a, const vector<int>& b) {
+        return a[0] < b[0];
+    });
+    
+    vector<vector<int>> merged;
+    merged.push_back(intervals[0]);
+    
+    for (int i = 1; i < intervals.size(); ++i) {
+        // 获取结果集最后一个区间
+        auto& last = merged.back();
+        
+        // 检查是否重叠
+        if (intervals[i][0] <= last[1]) {
+            // 合并区间，取结束时间的最大值
+            last[1] = max(last[1], intervals[i][1]);
+        } else {
+            // 不重叠，直接加入结果集
+            merged.push_back(intervals[i]);
+        }
+    }
+    
+    return merged;
+}
+};
