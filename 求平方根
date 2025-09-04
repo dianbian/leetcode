@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int mySqrt(int x) {
+    if (x < 2) return x; // 处理0和1的情况
+    
+    int left = 1, right = x;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (mid == x / mid) return mid; // 避免溢出
+        if (mid < x / mid) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return right; // 返回较小的值
+}
+};
+
+
+
+class Solution {
+public:
+    int mySqrt(int x) {
+    if (x < 2) return x;
+    
+    double x0 = x;
+    double x1 = (x0 + x / x0) / 2.0;
+    while (abs(x0 - x1) >= 1) {
+        x0 = x1;
+        x1 = (x0 + x / x0) / 2.0;
+    }
+    return (int)x1;
+}
+};
